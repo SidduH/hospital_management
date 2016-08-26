@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<head>
+<title> PHP Coding Challenge </title>
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	data = [];
+	$('#txtHospital').keyup(function(){
+		var hospital_val = $("#txtHospital").val();
+		$.ajax({
+			type: "GET",
+			url: "auto_populate.php",
+			data: { "search_string": hospital_val},
+			dataType: "json",
+			success: function(data, response, xhr){
+				$("#txtHospital" ).autocomplete({
+					source: data
+				});
+			},
+			error: function(data){
+				console.log(data);
+			}
+		});
+	});
+	$('#btnCity').click(function(){
+		var city_name = $('#txtCity').val();
+		$.ajax({
+			type: "GET",
+			url: "get_hospitals.php",
+			data: { "city": city_name},
+			success: function(data, response, xhr){
+				$("#hospitals").html(data);
+			},
+			error: function(data){
+				console.log(data);
+			}
+		});
+	});
+	$('#btnHospital').click(function(){
+		$.ajax({
+			type: "GET",
+			url: "get_hospitals_no_doctors.php",
+			success: function(data, response, xhr){
+				$("#hospitals_no_doctors").html(data);
+			},
+			error: function(data){
+				console.log(data);
+			}
+		});
+	});
+	$("#txtHospital" ).autocomplete({
+		source: data
+	});
+});
+</script>
+</head>
+
+<body>
+<p> Welcome to Development </p>
+<input type='text' id='txtCity' placeholder="City Name"/>
+
+<input type='button' id='btnCity' value="Fetch City"/>
+
+<br/>
+<div id='hospitals'></div>
+<p>Get all hospitals having no associated doctors: &nbsp&nbsp&nbsp
+<input type='button' id='btnHospital' value="Fetch Hospital" />
+</p>
+
+<div id='hospitals_no_doctors'>
+</div>
+
+
+<p>Auto populate matching hospitals: &nbsp&nbsp&nbsp
+<input type='text' id='txtHospital' placeholder="Hospital Name"/>
+</p>
+
+
+
+</body>
+
+<!--
+CREATE TABLE Hospitals (
+	ID INT NOT NULL,
+    NAME VARCHAR(50) NOT NULL,
+    CITY VARCHAR(50) NOT NULL,
+    PRIMARY KEY (ID)
+    
+);
+CREATE TABLE Doctors (
+doctor_id int NOT NULL,
+doctor_name varchar(50),
+hospital_Id int,
+PRIMARY KEY (doctor_Id),
+FOREIGN KEY (hospital_Id) REFERENCES hospitals(Id)
+)
+
+-->
+
