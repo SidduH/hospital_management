@@ -16,28 +16,28 @@
 	//	echo "DB Coneection established";
 	
 	if ($city){
-		$sql = "SELECT H.NAME as hname, D.NAME as dname, H.city as city FROM Hospitals H INNER JOIN Doctors D ON H.ID = D.HOSPITAL_ID WHERE H.CITY='$city'";
+		$sql = "SELECT H.NAME as hospital_name, D.NAME as doctor_name, H.city as city FROM Hospitals H INNER JOIN Doctors D ON H.ID = D.HOSPITAL_ID WHERE H.CITY='$city'";
 	}
 	else {
-		$sql = "SELECT distinct NAME as hname, city FROM Hospitals";
+		$sql = "SELECT distinct NAME as hospital_name, city FROM Hospitals";
 //"SELECT distinct H.NAME as hname, D.NAME as dname, H.city as city FROM Hospitals H INNER JOIN Doctors D ON H.ID = D.HOSPITAL_ID"	
 	}
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		echo "<table border='1'>";
 		echo "<tr><th>Hospital Name</th>";
-		if ($row["doctor"]) {
+		if ($row["doctor_name"]) {
 			echo "<th>Doctor Name</th>";
 		}
 		echo "<th>City</th></tr>";
 
 		while($row = $result->fetch_assoc()) {
 			echo "<tr><td>";
-			echo $row["hname"];
+			echo $row["hospital_name"];
 			echo "</td>";
-			if($row["doctor"]){
+			if($row["doctor_name"]){
 				echo "<td>";
-				echo $row["doctor"];
+				echo $row["doctor_name"];
 				echo "</td>";
 			}
 			echo "<td>";
