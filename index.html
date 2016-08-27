@@ -1,16 +1,19 @@
 <!DOCTYPE HTML>
 <head>
-<title> PHP Coding Challenge </title>
+<title> Hospital management website</title>
+<!-- Added the external CSS links -->
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css">
-
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+<!-- Added the external JS = -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-	matched_hospitals = [];  // Initialization o 
+	matched_hospitals = [];  // Initialization of an array object 
 	$('#txtHospital').keyup(function(){
-		var hospital_val = $("#txtHospital").val();
+		var hospital_val = $("#txtHospital").val();  // Get the entered text
+		// Make an ajax call to fetch distinct hospitals list
 		$.ajax({
 			type: "GET",
 			url: "auto_populate_hospitals.php",
@@ -26,13 +29,14 @@ $(document).ready(function(){
 			}
 		});
 	});
+	// On click of 'show Hospitals' button
 	$('#btnCity').click(function(){
-		var city_name = $('#txtCity').val();
+		var city_name = $('#txtCity').val();  // Get the entered text
+		// Make an ajax call to fetch hospitals list
 		$.ajax({
 			type: "GET",
 			url: "get_hospitals.php",
 			data: { "city": city_name},
-			//dataType: "json",
 			success: function(data, response, xhr){
 				$("#hospitals").html(data);
 			},
@@ -41,11 +45,12 @@ $(document).ready(function(){
 			}
 		});
 	});
+	// On click of fetch hospitals' button
 	$('#btnHospital').click(function(){
+		// Make an ajax call to get the hospitals having no associated doctors
 		$.ajax({
 			type: "GET",
 			url: "get_hospitals_without_doctors.php",
-			//dataType: "json",
 			success: function(data, response, xhr){
 				$("#hospitals_no_doctors").html(data);
 			},
@@ -54,6 +59,7 @@ $(document).ready(function(){
 			}
 		});
 	});
+	// Initial autocomplete method from Jqury UI
 	$("#txtHospital" ).autocomplete({
 		source: matched_hospitals
 	});

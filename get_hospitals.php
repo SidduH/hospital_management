@@ -1,32 +1,30 @@
 <?php
-//"select distinct id from Hospitals where id not in (select distinct hospital_id from Doctors);"
-
-	//echo "This will be returned", $_GET["city"];
-	$city = $_GET['city'];
+	$city = $_GET['city'];  //Entered city name
 	$servername = "localhost";
 	$username = "root";
 	$password = "s";
-	$dbname = "HospitalManagement";
+	$dbname = "HospitalManagement";  //DataBase name
 	// Create connection
 	$conn = new mysqli($servername, $username, $password, $dbname);
 	// Check connection
 	if ($conn->connect_error) {
 		die("Connection failed: " . $conn->connect_error);
 	} 
-	//	echo "DB Coneection established";
-	
-	if ($city){
+	// DB Coneection established
+	if ($city){  // Check if city name entered
+		// Query to fetch the hospitals details for the city
 		$sql = "SELECT H.NAME as hospital_name, D.NAME as doctor_name, H.city as city FROM Hospitals H INNER JOIN Doctors D ON H.ID = D.HOSPITAL_ID WHERE H.CITY='$city'";
 	}
 	else {
-		$sql = "SELECT distinct NAME as hospital_name, city FROM Hospitals";
-//"SELECT distinct H.NAME as hname, D.NAME as dname, H.city as city FROM Hospitals H INNER JOIN Doctors D ON H.ID = D.HOSPITAL_ID"	
+		// Query to fetch hospitals name
+		$sql = "SELECT distinct NAME as hospital_name, city FROM Hospitals";	
 	}
-	$result = $conn->query($sql);
-	if ($result->num_rows > 0) {
+	$result = $conn->query($sql);  // Execute sql query
+	if ($result->num_rows > 0) {  // Check for the number of rows
+		// Create table structure and add the rows data to it
 		echo "<table border='1'>";
 		echo "<tr><th>Hospital Name</th>";
-		if ($row["doctor_name"]) {
+		if ($city) {
 			echo "<th>Doctor Name</th>";
 		}
 		echo "<th>City</th></tr>";
@@ -52,5 +50,6 @@
 		echo "<p>No hospitals found</p>";
 	}
 	exit;
+// End of the php script
 ?>
 
