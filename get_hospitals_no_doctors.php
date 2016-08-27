@@ -16,12 +16,25 @@
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
 		//echo $result->num_rows, " Rows fetched <br />";
+//		while($row = $result->fetch_assoc()) {
+//		       echo $row["name"], " ", $row['city'], '<br />';
+		echo "<table border='1'>";
+		echo "<tr><th>Hospital Name</th>";
+		echo "<th>City</th></tr>";
+
 		while($row = $result->fetch_assoc()) {
-		       echo $row["name"], " ", $row['city'], '<br />';
+			echo "<tr><td>";
+			echo $row["name"];
+			echo "</td>";
+			echo "<td>";
+			echo $row["city"];
+			echo "</td>";
+			echo "</tr>";
 		}
+		echo "</table>";
 	}
 	else {
-		echo "No hospitals found";
+		echo "<p>No hospitals found</p>";
 	}
 	exit;
 

@@ -24,13 +24,32 @@
 	}
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
-		//echo $result->num_rows, " Rows fetched <br />";
-		while($row = $result->fetch_assoc()) {
-		       echo $row["hname"], " ", $row['dname'], " ", $row['city'], '<br />';
+		echo "<table border='1'>";
+		echo "<tr><th>Hospital Name</th>";
+		if ($row["doctor"]) {
+			echo "<th>Doctor Name</th>";
 		}
+		echo "<th>City</th></tr>";
+
+		while($row = $result->fetch_assoc()) {
+			echo "<tr><td>";
+			echo $row["hname"];
+			echo "</td>";
+			if($row["doctor"]){
+				echo "<td>";
+				echo $row["doctor"];
+				echo "</td>";
+			}
+			echo "<td>";
+			echo $row["city"];
+			echo "</td>";
+			echo "</tr>";
+		}
+		echo "</table>";
 	}
+	
 	else {
-		echo "No hospitals found";
+		echo "<p>No hospitals found</p>";
 	}
 	exit;
 ?>

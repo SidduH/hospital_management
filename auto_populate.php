@@ -15,17 +15,17 @@
 	$sql = "select distinct name from Hospitals where name LIKE '$search_string%'";
 	//echo 'sq ', $sql;
 	$result = $conn->query($sql);
+	$hospital_names = array();
 	if ($result->num_rows > 0) {
-		$hospital_names = array();	
 		//echo $result->num_rows, " Rows fetched <br />";
 		while($row = $result->fetch_assoc()) {
 		      //echo $row["name"], " ", $row['city'], '<br />';
 			$hospital_names[] = $row["name"];
 		}
 	}
-	else {
-		echo "No hospitals found";
-	}
+//	else {
+//		echo "No hospitals found";
+//	}
 //	echo var_dump($hospital_names);
 	echo json_encode($hospital_names);
 	exit;
