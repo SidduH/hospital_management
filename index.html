@@ -13,7 +13,7 @@ $(document).ready(function(){
 		var hospital_val = $("#txtHospital").val();
 		$.ajax({
 			type: "GET",
-			url: "auto_populate.php",
+			url: "auto_populate_hospitals.php",
 			data: { "search_string": hospital_val},
 			dataType: "json",
 			success: function(matched_hospitals, response, xhr){
@@ -44,7 +44,7 @@ $(document).ready(function(){
 	$('#btnHospital').click(function(){
 		$.ajax({
 			type: "GET",
-			url: "get_hospitals_no_doctors.php",
+			url: "get_hospitals_without_doctors.php",
 			//dataType: "json",
 			success: function(data, response, xhr){
 				$("#hospitals_no_doctors").html(data);
