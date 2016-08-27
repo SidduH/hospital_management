@@ -16,7 +16,7 @@
 	//echo 'sq ', $sql;
 	$result = $conn->query($sql);
 	if ($result->num_rows > 0) {
-		$hospital_names = array();		
+		$hospital_names = array();	
 		//echo $result->num_rows, " Rows fetched <br />";
 		while($row = $result->fetch_assoc()) {
 		      //echo $row["name"], " ", $row['city'], '<br />';

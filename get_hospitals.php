@@ -33,6 +33,5 @@
 		echo "No hospitals found";
 	}
 	exit;
-
 ?>
 
